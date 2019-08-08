@@ -25,7 +25,12 @@ const bandsOnDate = (date) => {
 };
 
 // TODO this should do more than return the number it's given
-const slice = R.curry((floor, ceiling, num) => num);
+// eslint-disable-next-line consistent-return
+const slice = R.curry((floor, ceiling, num) => {
+  if (RD.lt(num, floor) || RD.equals(num, floor)) return RD.decimal(0);
+  else if (RD.gt(num, floor) && (RD.lt(num, ceiling) || RD.equals(num, ceiling))) return RD.decimal(num - floor);
+  else if (RD.gt(num, ceiling)) return RD.decimal(ceiling - floor);
+});
 
 const calcForBand = R.curry(
   (income, { floor, ceiling, rate }) => RD.multiply(
