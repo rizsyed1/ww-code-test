@@ -60,6 +60,12 @@ RD.isPositive = (x) => {
   return num.isPositive(0);
 };
 
+RD.equals = R.curry(
+  (x, y) => RD.decimal(x)
+    .equals(y)
+);
+
+
 const rounding = R.pick([
   'ROUND_UP',
   'ROUND_DOWN',
